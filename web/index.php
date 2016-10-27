@@ -47,8 +47,10 @@
 final class Index {
 
     const DEFAULT_PAGE = 'home';
+    const DEFAULT_MODULE = 'home';
     const PAGE_DIR = '../page/';
     const LAYOUT_DIR = '../layout/';
+    private $module;
 
 
     /**
@@ -116,8 +118,12 @@ final class Index {
 
     private function getPage() {
         $page = self::DEFAULT_PAGE;
+        $this->module = self::DEFAULT_MODULE;
         if (array_key_exists('page', $_GET)) {
             $page = $_GET['page'];
+        }
+        if (array_key_exists('module', $_GET)) {
+            $this->module = $_GET['module'];
         }
         return $this->checkPage($page);
     }
@@ -158,11 +164,11 @@ final class Index {
     }
 
     private function getScript($page) {
-        return self::PAGE_DIR . $page . '-ctrl.php';
+        return self::PAGE_DIR .'/' . $this->module . '/' . $page . '-ctrl.php';
     }
 
     private function getTemplate($page) {
-        return self::PAGE_DIR . $page . '-view.php';
+        return self::PAGE_DIR . '/' . $this->module . '/' . $page . '-view.php';
     }
 
     private function hasScript($page) {
