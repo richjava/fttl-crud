@@ -80,11 +80,11 @@ final class Index {
         $extra = array('message' => $ex->getMessage());
         if ($ex instanceof NotFoundException) {
             header('HTTP/1.0 404 Not Found');
-            $this->runPage('404', $extra);
+            $this->runErrorPage('404', $extra);
         } else {
             // TODO log exception
             header('HTTP/1.1 500 Internal Server Error');
-            $this->runPage('500', $extra);
+            $this->runErrorPage('404', $extra);           
         }
     }
 
@@ -139,6 +139,14 @@ final class Index {
         }
         return $page;
     }
+    
+    private function runErrorPage($page, array $extra = array()){
+        $run = true;
+        require self::PAGE_DIR . $page . '-ctrl.php';
+        $template = self::PAGE_DIR  . $page . '-view.php';
+        $flashes = null;
+        require self::LAYOUT_DIR . 'index.phtml';
+    }
 
     private function runPage($page, array $extra = array()) {
         $run = false;
@@ -164,11 +172,12 @@ final class Index {
     }
 
     private function getScript($page) {
-        return self::PAGE_DIR .'/' . $this->module . '/' . $page . '-ctrl.php';
+        //if($page === '404' && $page === '')
+        return self::PAGE_DIR . $this->module . '/' . $page . '-ctrl.php';
     }
 
     private function getTemplate($page) {
-        return self::PAGE_DIR . '/' . $this->module . '/' . $page . '-view.php';
+        return self::PAGE_DIR  . $this->module . '/' . $page . '-view.php';
     }
 
     private function hasScript($page) {
