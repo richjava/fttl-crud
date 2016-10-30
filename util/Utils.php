@@ -107,11 +107,11 @@ final class Utils {
     }
 
     /**
-     * Get {@link Todo} by the identifier 'id' found in the URL.
-     * @return Booking {@link Todo} instance
-     * @throws NotFoundException if the param or {@link Todo} instance is not found
+     * Get object by the identifier 'id' found in the URL.
+     * @return Object
+     * @throws NotFoundException if the param or object is not found
      */
-    public static function getTodoByGetId() {
+    public static function getObjByGetId($dao) {
         $id = null;
         try {
             $id = self::getUrlParam('id');
@@ -121,12 +121,11 @@ final class Utils {
         if (!is_numeric($id)) {
             throw new NotFoundException('Invalid TODO identifier provided.');
         }
-        $dao = new TodoDao();
-        $todo = $dao->findById($id);
-        if ($todo === null) {
+        $obj = $dao->findById($id);
+        if ($obj === null) {
             throw new NotFoundException('Unknown TODO identifier provided.');
         }
-        return $todo;
+        return $obj;
     }
 
     /**

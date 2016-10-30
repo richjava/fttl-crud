@@ -10,6 +10,7 @@ class Booking {
     private $flightName;
     private $flightDate;
     private $dateCreated;
+    private $status;
     private $userId;
     
     function getId() {
@@ -50,6 +51,22 @@ class Booking {
 
     function setUserId($user_id) {
         $this->userId = $user_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 
 

@@ -34,15 +34,15 @@ class BookingDao {
      * Find {@link Todo} by identifier.
      * @return Todo Todo or <i>null</i> if not found
      */
-//    public function findById($id) {
-//        $row = $this->query('SELECT * FROM todo WHERE deleted = 0 and id = ' . (int) $id)->fetch();
-//        if (!$row) {
-//            return null;
-//        }
-//        $todo = new Todo();
-//        TodoMapper::map($todo, $row);
-//        return $todo;
-//    }
+    public function findById($id) {
+        $row = $this->query('SELECT * FROM bookings WHERE status != "deleted" and id = ' . (int) $id)->fetch();
+        if (!$row) {
+            return null;
+        }
+        $booking = new Booking();
+        BookingMapper::map($booking, $row);
+        return $booking;
+    }
 
     /**
      * Save {@link Todo}.
@@ -57,21 +57,19 @@ class BookingDao {
 //    }
 
     /**
-     * Delete {@link Todo} by identifier.
-     * @param int $id {@link Todo} identifier
+     * Delete {@link Booking} by identifier.
+     * @param int $id {@link Booking} identifier
      * @return bool <i>true</i> on success, <i>false</i> otherwise
      */
     public function delete($id) {
         $sql = '
-            UPDATE todo SET
-                last_modified_on = :last_modified_on,
-                deleted = :deleted
+            UPDATE bookings SET
+                status = :status
             WHERE
                 id = :id';
         $statement = $this->getDb()->prepare($sql);
         $this->executeStatement($statement, array(
-            ':last_modified_on' => self::formatDateTime(new DateTime()),
-            ':deleted' => true,
+            ':status' => 'deleted',
             ':id' => $id,
         ));
         return $statement->rowCount() == 1;

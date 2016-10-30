@@ -62,7 +62,8 @@
                         echo Utils::escape($booking->getflightName()); ?></a></h3>                
                 <p><span class="label">Created On:</span> <?php 
                 echo Utils::escape(Utils::formatDateTime($booking->getDateCreated())); 
-                ?></p>               
+                ?></p>
+                <p><a href="index.php?module=booking&page=delete&id=<?php echo $booking->getId()?>">Delete</a></p>
             </li>
         <?php endforeach; ?>
     </ul>

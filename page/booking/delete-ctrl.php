@@ -40,11 +40,12 @@
  *
  * Portions Copyrighted 2011 Sun Microsystems, Inc.
  */
+$bookingDao = new BookingDao();
+$booking = Utils::getObjByGetId($bookingDao);
+//var_dump($booking);
+//die();
 
-$booking = Utils::getTodoByGetId();
+$bookingDao->delete($booking->getId());
+Flash::addFlash('Booking deleted successfully.');
 
-$dao = new TodoDao();
-$dao->delete($booking->getId());
-Flash::addFlash('TODO deleted successfully.');
-
-Utils::redirect('list', array('status' => $booking->getStatus()));
+Utils::redirect('list', array('module' => 'booking'));

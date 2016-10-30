@@ -172,7 +172,6 @@ final class Index {
     }
 
     private function getScript($page) {
-        //if($page === '404' && $page === '')
         return self::PAGE_DIR . $this->module . '/' . $page . '-ctrl.php';
     }
 

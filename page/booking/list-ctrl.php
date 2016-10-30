@@ -52,5 +52,5 @@ $dao = new BookingDao();
 
 // data for template
 //$title = Utils::capitalize($status) . ' TODOs';
-$sql = 'SELECT * FROM bookings';
+$sql = 'SELECT * FROM bookings WHERE status != "deleted"';
 $bookings = $dao->find($sql);
