@@ -174,8 +174,8 @@ class BookingDao {
             ':status' => $booking->getStatus(),
             ':user_id' => $booking->getUserId()
         );
-        var_dump($params);
-        die();
+        //var_dump($params);
+        //die();
         return $params;
     }
 
