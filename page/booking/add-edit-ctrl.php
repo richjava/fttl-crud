@@ -81,8 +81,8 @@ if ($edit) {
         // save
         $dao = new BookingDao();
         $booking = $dao->save($booking);
-//        Flash::addFlash('Booking saved successfully.');
-//        // redirect
-//        Utils::redirect('list', array('module' => 'booking'));
+        Flash::addFlash('Booking saved successfully.');
+        // redirect
+        Utils::redirect('list', array('module' => 'booking'));
     }
 }
