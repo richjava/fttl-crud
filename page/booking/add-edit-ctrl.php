@@ -42,48 +42,47 @@
  */
 $headTemplate = new HeadTemplate('Add/Edit | TodoList', 'Edit or add a booking');
 
-//$template = new Template();
-//$template->setTitle('Add/Edit | TodoList');
-//$template->setDescription('Edit or add a Todo');
-
 $errors = array();
 $booking = null;
 $edit = array_key_exists('id', $_GET);
 if ($edit) {
-    $booking = Utils::getTodoByGetId();
+    $dao = new BookingDao();
+    $booking = Utils::getObjByGetId($dao);
 } else {
     // set defaults
     $booking = new Booking();
-    $booking->setPriority(Booking::PRIORITY_MEDIUM);
-    $dueOn = new DateTime("+1 day");
-    $dueOn->setTime(0, 0, 0);
-    $booking->setDueOn($dueOn);
+    $booking->setFlightName('');
+    $flightDate = new DateTime("+1 day");
+    $flightDate->setTime(0, 0, 0);
+    $booking->setFlightDate($flightDate);
+    $booking->setStatus('pending');
+    $userId = 1;//hard-coded because we don't have a logged in user yet
+    $booking->setUserId($userId);
 }
 
-if (array_key_exists('cancel', $_POST)) {
-    // redirect
-    Utils::redirect('detail', array('id' => $booking->getId()));
-} elseif (array_key_exists('save', $_POST)) {
+//if (array_key_exists('cancel', $_POST)) {
+//    // redirect
+//    Utils::redirect('detail', array('id' => $booking->getId()));
+//} 
+//else
+    if (array_key_exists('save', $_POST)) {
     // for security reasons, do not map the whole $_POST['todo']
     $data = array(
-        'title' => $_POST['todo']['title'],
-        'due_on' => $_POST['todo']['due_on_date'] . ' ' . $_POST['todo']['due_on_hour'] . ':' . $_POST['todo']['due_on_minute'] . ':00',
-        'priority' => $_POST['todo']['priority'],
-        'description' => $_POST['todo']['description'],
-        'comment' => $_POST['todo']['comment'],
+        'flight_name' => $_POST['booking']['flight_name'],
+        'flight_date' => $_POST['booking']['flight_date']
     );
-        ;
+
     // map
-    TodoMapper::map($booking, $data);
+    BookingMapper::map($booking, $data);
     // validate
-    $errors = TodoValidator::validate($booking);
+    //$errors = BookingValidator::validate($booking);
     // validate
     if (empty($errors)) {
         // save
-        $dao = new TodoDao();
+        $dao = new BookingDao();
         $booking = $dao->save($booking);
-        Flash::addFlash('TODO saved successfully.');
-        // redirect
-        Utils::redirect('detail', array('id' => $booking->getId()));
+//        Flash::addFlash('Booking saved successfully.');
+//        // redirect
+//        Utils::redirect('list', array('module' => 'booking'));
     }
 }

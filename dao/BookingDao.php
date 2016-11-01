@@ -45,16 +45,16 @@ class BookingDao {
     }
 
     /**
-     * Save {@link Todo}.
-     * @param ToDo $todo {@link Todo} to be saved
-     * @return Todo saved {@link Todo} instance
+     * Save {@link Booking}.
+     * @param Booking $booking {@link Booking} to be saved
+     * @return Booking saved {@link Booking} instance
      */
-//    public function save(ToDo $todo) {
-//        if ($todo->getId() === null) {
-//            return $this->insert($todo);
-//        }
-//        return $this->update($todo);
-//    }
+    public function save(Booking $booking) {
+        if ($booking->getId() === null) {
+            return $this->insert($booking);
+        }
+        return $this->update($booking);
+    }
 
     /**
      * Delete {@link Booking} by identifier.
@@ -115,20 +115,18 @@ class BookingDao {
 //    }
 
     /**
-     * @return Todo
+     * @return Booking
      * @throws Exception
      */
-//    private function insert(Todo $todo) {
-//        $now = new DateTime();
-//        $todo->setId(null);
-//        $todo->setCreatedOn($now);
-//        $todo->setLastModifiedOn($now);
-//        $todo->setStatus(Todo::STATUS_PENDING);
-//        $sql = '
-//            INSERT INTO todo (id, priority, created_on, last_modified_on, due_on, title, description, comment, status, deleted)
-//                VALUES (:id, :priority, :created_on, :last_modified_on, :due_on, :title, :description, :comment, :status, :deleted)';
-//        return $this->execute($sql, $todo);
-//    }
+    private function insert(Booking $booking) {
+        $now = new DateTime();
+        $booking->setId(null);
+        $booking->setStatus('pending');
+        $sql = '
+            INSERT INTO bookings (id, flight_name, flight_date, status, user_id)
+                VALUES (:id, :flight_name, :flight_date, :status, :user_id)';
+        return $this->execute($sql, $booking);
+    }
 
     /**
      * @return Todo
@@ -152,40 +150,34 @@ class BookingDao {
 //    }
 
     /**
-     * @return Todo
+     * @return Booking
      * @throws Exception
      */
-//    private function execute($sql, Todo $todo) {
-//        $statement = $this->getDb()->prepare($sql);
-//        $this->executeStatement($statement, $this->getParams($todo));
-//        if (!$todo->getId()) {
-//            return $this->findById($this->getDb()->lastInsertId());
-//        }
-//        if (!$statement->rowCount()) {
-//            throw new NotFoundException('TODO with ID "' . $todo->getId() . '" does not exist.');
-//        }
-//        return $todo;
-//    }
+    private function execute($sql, Booking $booking) {
+        $statement = $this->getDb()->prepare($sql);
+        $this->executeStatement($statement, $this->getParams($booking));
+        if (!$booking->getId()) {
+            return $this->findById($this->getDb()->lastInsertId());
+        }
+        if (!$statement->rowCount()) {
+            throw new NotFoundException('Booking with ID "' . $booking->getId() . '" does not exist.');
+        }
+        return $booking;
+    }
 
-//    private function getParams(Todo $todo) {
-//        $params = array(
-//            ':id' => $todo->getId(),
-//            ':priority' => $todo->getPriority(),
-//            ':created_on' => self::formatDateTime($todo->getCreatedOn()),
-//            ':last_modified_on' => self::formatDateTime($todo->getLastModifiedOn()),
-//            ':due_on' => self::formatDateTime($todo->getDueOn()),
-//            ':title' => $todo->getTitle(),
-//            ':description' => $todo->getDescription(),
-//            ':comment' => $todo->getComment(),
-//            ':status' => $todo->getStatus(),
-//            ':deleted' => $todo->getDeleted(),
-//        );
-//        if ($todo->getId()) {
-//            // unset created date, this one is never updated
-//            unset($params[':created_on']);
-//        }
-//        return $params;
-//    }
+    private function getParams(Booking $booking) {
+        //:id,:flight_name, :flight_date, :date_created, :status, :user_id
+        $params = array(
+            ':id' => $booking->getId(),
+            ':flight_name' => $booking->getFlightName(),
+            ':flight_date' => self::formatDateTime($booking->getFlightDate()),
+            ':status' => $booking->getStatus(),
+            ':user_id' => $booking->getUserId()
+        );
+        var_dump($params);
+        die();
+        return $params;
+    }
 
     private function executeStatement(PDOStatement $statement, array $params) {
         if (!$statement->execute($params)) {
