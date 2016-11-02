@@ -45,6 +45,7 @@ $headTemplate = new HeadTemplate('Add/Edit | TodoList', 'Edit or add a booking')
 $errors = array();
 $booking = null;
 $edit = array_key_exists('id', $_GET);
+$flightNames = array('Glider', 'Helicopter sightseeing');
 if ($edit) {
     $dao = new BookingDao();
     $booking = Utils::getObjByGetId($dao);
@@ -71,6 +72,9 @@ if ($edit) {
         'flight_name' => $_POST['booking']['flight_name'],
         'flight_date' => $_POST['booking']['flight_date']
     );
+    
+    var_dump($data);
+    
 
     // map
     BookingMapper::map($booking, $data);

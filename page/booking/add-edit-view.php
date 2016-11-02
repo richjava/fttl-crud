@@ -62,10 +62,11 @@ function error_field($title, array $errors) {
 
 <h1>
     <?php if ($edit): ?>
-        <?php echo Utils::escape($booking->getTitle()); ?>
+        Edit&nbsp;
     <?php else: ?>
-        Add new Booking
+        Add&nbsp; 
     <?php endif; ?>
+        new Booking
 </h1>
 
 <?php if (!empty($errors)): ?>
@@ -82,11 +83,20 @@ function error_field($title, array $errors) {
         <div class="field">
             <label>Flight name:</label>
             <select name="booking[flight_name]">
-                <option value="Helicopter sightseeing">Helicopter sightseeing</option>
+            <?php foreach ($flightNames as $flightName): ?>
+                <option value="<?php echo $flightName; ?>"
+                    <?php if ($booking->getFlightName() == $flightName): ?>
+                            selected="selected"
+                        <?php endif; ?>
+                        ><?php echo $flightName; ?></option>
+            <?php endforeach; ?>
+            </select>
+<!--            <select name="booking[flight_name]">
+                <option value="<?php// echo $i; ?>">Helicopter sightseeing</option>
                 <option value="Glider">Glider</option>
                 <option value="Tramping excursion">Tramping excursion</option>
                 <option value="Heliskiing">Heliskiing</option>
-            </select>
+            </select>-->
 <!--            <input type="text" name="booking[flight_name]" value="<?php //echo Utils::escape($booking->getFlightName()); ?>"
                    class="text<?php //echo error_field('flight_name', $errors); ?>"/>-->
         </div>

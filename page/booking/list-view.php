@@ -63,7 +63,8 @@
                 <p><span class="label">Created On:</span> <?php 
                 echo Utils::escape(Utils::formatDateTime($booking->getDateCreated())); 
                 ?></p>
-                <p><a href="index.php?module=booking&page=delete&id=<?php echo $booking->getId()?>">Delete</a></p>
+                <p><a href="index.php?module=booking&page=add-edit&id=<?php echo $booking->getId()?>">Edit</a>
+                    | <a href="index.php?module=booking&page=delete&id=<?php echo $booking->getId()?>">Delete</a></p>
             </li>
         <?php endforeach; ?>
     </ul>

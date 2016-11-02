@@ -129,25 +129,21 @@ class BookingDao {
     }
 
     /**
-     * @return Todo
+     * @return Booking
      * @throws Exception
      */
-//    private function update(Todo $todo) {
-//        $todo->setLastModifiedOn(new DateTime());
-//        $sql = '
-//            UPDATE todo SET
-//                priority = :priority,
-//                last_modified_on = :last_modified_on,
-//                due_on = :due_on,
-//                title = :title,
-//                description = :description,
-//                comment = :comment,
-//                status = :status,
-//                deleted = :deleted
-//            WHERE
-//                id = :id';
-//        return $this->execute($sql, $todo);
-//    }
+    private function update(Booking $booking) {
+        $sql = '
+            UPDATE bookings SET
+                flight_name = :flight_name,
+                flight_date = :flight_date,
+                status = :status,
+                user_id = :user_id
+            WHERE
+                id = :id';
+        
+        return $this->execute($sql, $booking);
+    }
 
     /**
      * @return Booking
@@ -159,9 +155,9 @@ class BookingDao {
         if (!$booking->getId()) {
             return $this->findById($this->getDb()->lastInsertId());
         }
-        if (!$statement->rowCount()) {
-            throw new NotFoundException('Booking with ID "' . $booking->getId() . '" does not exist.');
-        }
+//        if (!$statement->rowCount()) {
+//            throw new NotFoundException('Booking with ID "' . $booking->getId() . '" does not exist.');
+//        }
         return $booking;
     }
 
@@ -174,8 +170,10 @@ class BookingDao {
             ':status' => $booking->getStatus(),
             ':user_id' => $booking->getUserId()
         );
-        //var_dump($params);
-        //die();
+        var_dump($booking);
+        echo '<br>';
+        var_dump($params);
+        die();
         return $params;
     }
 
