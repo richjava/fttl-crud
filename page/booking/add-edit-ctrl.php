@@ -70,16 +70,17 @@ if ($edit) {
     // for security reasons, do not map the whole $_POST['todo']
     $data = array(
         'flight_name' => $_POST['booking']['flight_name'],
-        'flight_date' => $_POST['booking']['flight_date']
+        'flight_date' => $_POST['booking']['flight_date'] . ' 00:00:00'
     );
     
-    var_dump($data);
+//    var_dump($data);
+//    die();
     
 
     // map
     BookingMapper::map($booking, $data);
     // validate
-    //$errors = BookingValidator::validate($booking);
+    $errors = BookingValidator::validate($booking);
     // validate
     if (empty($errors)) {
         // save

@@ -45,39 +45,23 @@
  * Validator for {@link Todo}.
  * @see TodoMapper
  */
-final class TodoValidator {
+final class BookingValidator {
 
     private function __construct() {
     }
 
     /**
      * Validate the given {@link Todo} instance.
-     * @param Booking $todo {@link Todo} instance to be validated
+     * @param Booking $booking {@link Todo} instance to be validated
      * @return array array of {@link Error} s
      */
-    public static function validate(Booking $todo) {
+    public static function validate(Booking $booking) {
         $errors = array();
-        if (!$todo->getCreatedOn()) {
-            $errors[] = new Error('createdOn', 'Empty or invalid Created On.');
+        if (!$booking->getFlightName()) {
+            $errors[] = new Error('flightName', 'Empty or invalid flight name.');
         }
-        if (!$todo->getLastModifiedOn()) {
-            $errors[] = new Error('lastModifiedOn', 'Empty or invalid Last Modified On.');
-        }
-        if (!trim($todo->getTitle())) {
-            $errors[] = new Error('title', 'Title cannot be empty.');
-        }
-        if (!$todo->getDueOn()) {
-            $errors[] = new Error('dueOn', 'Empty or invalid Due On.');
-        }
-        if (!trim($todo->getPriority())) {
-            $errors[] = new Error('priority', 'Priority cannot be empty.');
-        } elseif (!self::isValidPriority($todo->getPriority())) {
-            $errors[] = new Error('priority', 'Invalid Priority set.');
-        }
-        if (!trim($todo->getStatus())) {
-            $errors[] = new Error('status', 'Status cannot be empty.');
-        } elseif (!self::isValidStatus($todo->getStatus())) {
-            $errors[] = new Error('status', 'Invalid Status set.');
+        if (!$booking->getFlightDate()) {
+            $errors[] = new Error('flightDate', 'Empty or invalid flight date.');
         }
         return $errors;
     }

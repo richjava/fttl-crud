@@ -21,7 +21,7 @@ class BookingMapper {
         if (array_key_exists('flight_name', $properties)) {
             $booking->setFlightName($properties['flight_name']);
         }
-        if (array_key_exists('flight_date', $properties)) {
+        if (array_key_exists('flight_date', $properties)) {         
             $flightDate = self::createDateTime($properties['flight_date']);
             if ($flightDate) {
                 $booking->setFlightDate($flightDate);

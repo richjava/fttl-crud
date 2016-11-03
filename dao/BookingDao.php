@@ -162,7 +162,6 @@ class BookingDao {
     }
 
     private function getParams(Booking $booking) {
-        //:id,:flight_name, :flight_date, :date_created, :status, :user_id
         $params = array(
             ':id' => $booking->getId(),
             ':flight_name' => $booking->getFlightName(),

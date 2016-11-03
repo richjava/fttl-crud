@@ -40,7 +40,7 @@
  * Portions Copyrighted 2011 Sun Microsystems, Inc.
  */
 
-$(document).ready(function() {
+$(document).ready(function () {
     initDatepicker();
     initFlashes();
     initErrorFields();
@@ -50,10 +50,16 @@ $(document).ready(function() {
 
 function initDatepicker() {
     $('.datepicker')
-        .attr('readonly', 'readonly')
-        .datepicker({
-            dateFormat: 'yy-m-d'
-        });
+      .attr('readonly', 'readonly')
+      .datepicker({
+          dateFormat: 'yy-m-d'
+      });
+    //update flight_date datepicker value attribute on change
+    var flightDateEl = $('#flight_date');
+    flightDateEl.change(function () {
+        var val = flightDateEl.val();
+        flightDateEl.attr('value', val);
+    });
 }
 
 function initFlashes() {
@@ -61,7 +67,7 @@ function initFlashes() {
     if (!flashes.length) {
         return;
     }
-    setTimeout(function() {
+    setTimeout(function () {
         flashes.slideUp("slow");
     }, 2000);
 }
@@ -78,16 +84,16 @@ function initDeleteDialog() {
         modal: true,
         width: 476,
         buttons: {
-            'OK': function() {
+            'OK': function () {
                 $(this).dialog('close');
                 location.href = deleteLink.attr('href');
             },
-            'Cancel': function() {
+            'Cancel': function () {
                 $(this).dialog('close');
             }
         }
     });
-    deleteLink.click(function() {
+    deleteLink.click(function () {
         deleteDialog.dialog('open');
         return false;
     });
@@ -102,16 +108,16 @@ function initChangeStatusDialog() {
         modal: true,
         width: 476,
         buttons: {
-            'OK': function() {
+            'OK': function () {
                 changeStatusForm.submit();
                 $(this).dialog('close');
             },
-            'Cancel': function() {
+            'Cancel': function () {
                 $(this).dialog('close');
             }
         }
     });
-    changeStatusLink.click(function() {
+    changeStatusLink.click(function () {
         changeStatusForm.attr('action', $(this).attr('href'));
         changeStatusDialog.dialog('option', 'title', $(this).attr('title'));
         changeStatusDialog.dialog('open');
