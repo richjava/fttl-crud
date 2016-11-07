@@ -88,7 +88,7 @@ function error_field($title, array $errors) {
                     <?php if ($booking->getFlightName() == $flightName): ?>
                             selected="selected"
                         <?php endif; ?>
-                        ><?php echo $flightName; ?></option>
+                        ><?php echo Utils::escape($flightName); ?></option>
             <?php endforeach; ?>
             </select>
 <!--            <select name="booking[flight_name]">

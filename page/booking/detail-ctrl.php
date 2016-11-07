@@ -43,5 +43,5 @@
 $headTemplate = new HeadTemplate('Booking details | Fly to the Limit', 'Booking details');
 
 // data for template
-$booking = Utils::getTodoByGetId();
-$tooLate = $booking->getStatus() == Booking::STATUS_PENDING && $booking->getDueOn() < new DateTime();
+$booking = Utils::getBookingByGetId();
+//$tooLate = $booking->getStatus() == Booking::STATUS_PENDING && $booking->getDueOn() < new DateTime();

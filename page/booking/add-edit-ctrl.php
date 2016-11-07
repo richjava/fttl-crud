@@ -1,4 +1,5 @@
 <?php
+
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
@@ -57,7 +58,7 @@ if ($edit) {
     $flightDate->setTime(0, 0, 0);
     $booking->setFlightDate($flightDate);
     $booking->setStatus('pending');
-    $userId = 1;//hard-coded because we don't have a logged in user yet
+    $userId = 1; //hard-coded because we don't have a logged in user yet
     $booking->setUserId($userId);
 }
 
@@ -66,16 +67,18 @@ if ($edit) {
 //    Utils::redirect('detail', array('id' => $booking->getId()));
 //} 
 //else
-    if (array_key_exists('save', $_POST)) {
-    // for security reasons, do not map the whole $_POST['todo']
-    $data = array(
-        'flight_name' => $_POST['booking']['flight_name'],
-        'flight_date' => $_POST['booking']['flight_date'] . ' 00:00:00'
-    );
+if (array_key_exists('save', $_POST)) {
+
+//    $data = array(
+//        'flight_name' => $_POST['booking']['flight_name'],
+//        'flight_date' => $_POST['booking']['flight_date'] . ' 00:00:00'
+//    );
     
-//    var_dump($data);
-//    die();
-    
+    //filter input    
+    $data = filter_input(INPUT_POST, 'booking', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+    //workaround for date
+    $data['flight_date'].= ' 00:00:00';
+
 
     // map
     BookingMapper::map($booking, $data);
