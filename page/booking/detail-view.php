@@ -41,10 +41,6 @@
  * Portions Copyrighted 2011 Sun Microsystems, Inc.
  */
 
-//~ Template for detail.php
-// variables:
-//  $todo - TODO to be displayed
-//  $tooLate - if the task should have been done already
 
 /* @var $booking Booking */
 ?>
