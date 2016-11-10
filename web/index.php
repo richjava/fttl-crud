@@ -108,7 +108,9 @@ final class Index {
             'TodoSearchCriteria' => '../dao/TodoSearchCriteria.php',
             'BookingValidator' => '../validation/BookingValidator.php',
             'Utils' => '../util/Utils.php',
-            'HeadTemplate' => '../layout/HeadTemplate.php'
+            'HeadTemplate' => '../layout/HeadTemplate.php',
+            'ImageResizer' => '../image/ImageResizer.php',
+            'Uploader' => '../upload/Uploader.php'
         );
         if (!array_key_exists($name, $classes)) {
             die('Class "' . $name . '" not found.');

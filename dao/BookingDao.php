@@ -123,8 +123,8 @@ class BookingDao {
         $booking->setId(null);
         $booking->setStatus('pending');
         $sql = '
-            INSERT INTO bookings (id, flight_name, flight_date, status, user_id)
-                VALUES (:id, :flight_name, :flight_date, :status, :user_id)';
+            INSERT INTO bookings (id, flight_name, flight_date, status, user_id, image_url)
+                VALUES (:id, :flight_name, :flight_date, :status, :user_id, :image_url)';
         return $this->execute($sql, $booking);
     }
 
@@ -138,7 +138,8 @@ class BookingDao {
                 flight_name = :flight_name,
                 flight_date = :flight_date,
                 status = :status,
-                user_id = :user_id
+                user_id = :user_id,
+                image_url = :image_url
             WHERE
                 id = :id';
         
@@ -167,7 +168,8 @@ class BookingDao {
             ':flight_name' => $booking->getFlightName(),
             ':flight_date' => self::formatDateTime($booking->getFlightDate()),
             ':status' => $booking->getStatus(),
-            ':user_id' => $booking->getUserId()
+            ':user_id' => $booking->getUserId(),
+            ':image_url' => $booking->getImageUrl()
         );
 //        var_dump($booking);
 //        echo '<br>';

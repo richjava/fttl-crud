@@ -78,7 +78,7 @@ function error_field($title, array $errors) {
     </ul>
 <?php endif; ?>
 
-<form action="#" method="post">
+<form action="#" method="post" enctype="multipart/form-data">
     <fieldset>
         <div class="field">
             <label>Flight name:</label>
@@ -104,6 +104,15 @@ function error_field($title, array $errors) {
             <label>Flight date:</label>
             <input id="flight_date" type="text" name="booking[flight_date]" value="<?php echo Utils::escape($booking->getFlightDate()->format('Y-n-j')); ?>"
                    class="text datepicker<?php echo error_field('flight_date', $errors); ?>" />
+        </div>
+        <div class="field">
+        <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
+	    <fieldset>
+		<table>
+		    <tr><td align="right">Upload Image</td>
+			<td><input type="file" name="myfile1" /></td></tr>
+		</table>
+	    </fieldset>
         </div>
         <div class="wrapper">
         <!--<input type="submit" name="cancel" value="CANCEL" class="submit" />-->

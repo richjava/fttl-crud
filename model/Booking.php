@@ -12,6 +12,7 @@ class Booking {
     private $dateCreated;
     private $status;
     private $userId;
+    private $imageUrl;
     
     function getId() {
         return $this->id;
@@ -67,6 +68,14 @@ class Booking {
     public function setStatus($status)
     {
         $this->status = $status;
+    }
+
+    function getImageUrl() {
+        return $this->imageUrl;
+    }
+
+    function setImageUrl($imageUrl) {
+        $this->imageUrl = $imageUrl;
     }
 
 

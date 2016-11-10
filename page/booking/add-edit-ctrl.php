@@ -47,6 +47,25 @@ $errors = array();
 $booking = null;
 $edit = array_key_exists('id', $_GET);
 $flightNames = array('Glider', 'Helicopter sightseeing');
+
+function resize($image){
+    try {
+                    if ($image->resize()) {
+                        return true;
+//                    echo "SUCCESSFULLY RESIZED <br />";
+//                    echo "<img src=\"".$filePath."\"/>";
+//                    echo "<img src=\"".$image->getFullPath()."\"/>";
+                    } else {
+                        //set placeholder for validator to recognise as an error
+                        $data['image_url'] = false; //Image upload failed
+                    }
+                } catch (Exception $ex) {
+                    //set placeholder for validator to recognise as an error
+                    $data['image_url'] = false; //Image upload failed
+                }
+}
+
+
 if ($edit) {
     $dao = new BookingDao();
     $booking = Utils::getObjByGetId($dao);
@@ -62,22 +81,43 @@ if ($edit) {
     $booking->setUserId($userId);
 }
 
-//if (array_key_exists('cancel', $_POST)) {
-//    // redirect
-//    Utils::redirect('detail', array('id' => $booking->getId()));
-//} 
-//else
 if (array_key_exists('save', $_POST)) {
 
-//    $data = array(
-//        'flight_name' => $_POST['booking']['flight_name'],
-//        'flight_date' => $_POST['booking']['flight_date'] . ' 00:00:00'
-//    );
-    
     //filter input    
     $data = filter_input(INPUT_POST, 'booking', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
     //workaround for date
     $data['flight_date'].= ' 00:00:00';
+
+    //image upload and resize
+    // If the file name is available first upload it
+    if (!empty($_FILES)) {
+        if ($_FILES['myfile1']['name']) {
+            $name = $_FILES['myfile1']['name'];
+            $upload = new Uploader('myfile1');
+            $filePath = $upload->upload();
+            $pathPrefix = 'img/upload';
+            $data['image_url'] = $filePath ? $filePath : '-1';
+            if ($filePath && $upload->getType() != Uploader::PDF_TYPE) {
+                // Successfully uploaded so resize now.
+                $image = new ImageResizer($filePath, 100, $pathPrefix, "thumb");
+                $data['image_url'] = resize($image) === true ? $name : '-1';
+                
+//                if ($image->resize()) {
+////                    echo "SUCCESSFULLY RESIZED <br />";
+////                    echo "<img src=\"".$filePath."\"/>";
+////                    echo "<img src=\"".$image->getFullPath()."\"/>";
+//                } else {
+//                    echo "ERROR : UNABLE TO RESIZE<br />";
+//                }
+            } else {
+                echo "Unable to upload file - SEE the ERROR ABOVE?<br />";
+            }
+        }
+//        } else {
+//            echo "Please select a file to upload<br />";
+//        }
+    }
+
 
 
     // map

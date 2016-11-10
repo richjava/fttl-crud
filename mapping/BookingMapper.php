@@ -1,12 +1,14 @@
 <?php
+
 /**
  * Description of BookingMapper
  *
  * @author richard_lovell
  */
 class BookingMapper {
-    
+
     private function __construct() {
+        
     }
 
     /**
@@ -21,7 +23,7 @@ class BookingMapper {
         if (array_key_exists('flight_name', $properties)) {
             $booking->setFlightName($properties['flight_name']);
         }
-        if (array_key_exists('flight_date', $properties)) {         
+        if (array_key_exists('flight_date', $properties)) {
             $flightDate = self::createDateTime($properties['flight_date']);
             if ($flightDate) {
                 $booking->setFlightDate($flightDate);
@@ -39,9 +41,13 @@ class BookingMapper {
         if (array_key_exists('user_id', $properties)) {
             $booking->setUserId($properties['user_id']);
         }
+        if (array_key_exists('image_url', $properties)) {
+            $booking->setImageUrl($properties['image_url']);
+        }
     }
 
     private static function createDateTime($input) {
         return DateTime::createFromFormat('Y-n-j H:i:s', $input);
     }
+
 }

@@ -63,6 +63,10 @@ final class BookingValidator {
         if (!$booking->getFlightDate()) {
             $errors[] = new Error('flightDate', 'Empty or invalid flight date.');
         }
+        if ($booking->getImageUrl()) {
+            if($booking->getImageUrl() === '-1')
+            $errors[] = new Error('imageUrl', 'Image upload failed.');
+        }
         return $errors;
     }
 
