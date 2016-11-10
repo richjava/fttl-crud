@@ -56,10 +56,6 @@
 
 <table class="detail">
     <tr>
-        <th>Priority</th>
-        <td><img src="img/priority/<?php echo $booking->getPriority(); ?>.png" alt="Priority <?php echo $booking->getPriority(); ?>" title="Priority <?php echo $booking->getPriority(); ?>" /></td>
-    </tr>
-    <tr>
         <th>Created On</th>
         <td><?php echo Utils::escape(Utils::formatDateTime($booking->getDateCreated())); ?></td>
     </tr>
@@ -69,6 +65,6 @@
     </tr>
     <tr>
         <th>Status</th>
-        <td><?php echo Utils::escape(Utils::formatDateTime($booking->getFlightDate())); ?></td>
+        <td><?php echo Utils::escape($booking->getStatus()); ?></td>
     </tr>
 </table>

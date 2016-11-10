@@ -41,7 +41,7 @@
  * Portions Copyrighted 2011 Sun Microsystems, Inc.
  */
 $headTemplate = new HeadTemplate('Booking details | Fly to the Limit', 'Booking details');
-
+$dao = new BookingDao();
 // data for template
-$booking = Utils::getBookingByGetId();
+$booking = Utils::getObjByGetId($dao);
 //$tooLate = $booking->getStatus() == Booking::STATUS_PENDING && $booking->getDueOn() < new DateTime();

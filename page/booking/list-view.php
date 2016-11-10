@@ -58,7 +58,7 @@
         <?php foreach ($bookings as $booking): ?>
             <li>                
                 <h3><a href="<?php echo Utils::createLink('detail', 
-                        array('id' => $booking->getId())) ?>"><?php 
+                        array('id' => $booking->getId(), 'module' => 'booking')) ?>"><?php 
                         echo Utils::escape($booking->getflightName()); ?></a></h3>                
                 <p><span class="label">Flight date:</span> <?php 
                 echo Utils::escape(Utils::formatDate($booking->getFlightDate())); 
