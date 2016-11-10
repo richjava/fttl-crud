@@ -48,23 +48,18 @@ $booking = null;
 $edit = array_key_exists('id', $_GET);
 $flightNames = array('Glider', 'Helicopter sightseeing');
 
-function resize($image){
+function resize($image) {
     try {
-                    if ($image->resize()) {
-                        return true;
-//                    echo "SUCCESSFULLY RESIZED <br />";
-//                    echo "<img src=\"".$filePath."\"/>";
-//                    echo "<img src=\"".$image->getFullPath()."\"/>";
-                    } else {
-                        //set placeholder for validator to recognise as an error
-                        $data['image_url'] = false; //Image upload failed
-                    }
-                } catch (Exception $ex) {
-                    //set placeholder for validator to recognise as an error
-                    $data['image_url'] = false; //Image upload failed
-                }
+        if ($image->resize()) {
+            return true;
+        } else {
+            $data['image_url'] = false; //Image upload failed
+        }
+    } catch (Exception $ex) {
+        //set placeholder for validator to recognise as an error
+        $data['image_url'] = false; //Image upload failed
+    }
 }
-
 
 if ($edit) {
     $dao = new BookingDao();
@@ -101,24 +96,11 @@ if (array_key_exists('save', $_POST)) {
                 // Successfully uploaded so resize now.
                 $image = new ImageResizer($filePath, 100, $pathPrefix, "thumb");
                 $data['image_url'] = resize($image) === true ? $name : '-1';
-                
-//                if ($image->resize()) {
-////                    echo "SUCCESSFULLY RESIZED <br />";
-////                    echo "<img src=\"".$filePath."\"/>";
-////                    echo "<img src=\"".$image->getFullPath()."\"/>";
-//                } else {
-//                    echo "ERROR : UNABLE TO RESIZE<br />";
-//                }
             } else {
                 echo "Unable to upload file - SEE the ERROR ABOVE?<br />";
             }
         }
-//        } else {
-//            echo "Please select a file to upload<br />";
-//        }
     }
-
-
 
     // map
     BookingMapper::map($booking, $data);
