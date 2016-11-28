@@ -6,14 +6,16 @@
  * @author richard_lovell
  */
 class Booking {
+
     private $id;
     private $flightName;
     private $flightDate;
     private $dateCreated;
     private $status;
-    private $userId;
     private $imageUrl;
-    
+    //private $userId;
+    private $user;
+
     function getId() {
         return $this->id;
     }
@@ -57,16 +59,14 @@ class Booking {
     /**
      * @return mixed
      */
-    public function getStatus()
-    {
+    public function getStatus() {
         return $this->status;
     }
 
     /**
      * @param mixed $status
      */
-    public function setStatus($status)
-    {
+    public function setStatus($status) {
         $this->status = $status;
     }
 
@@ -78,5 +78,12 @@ class Booking {
         $this->imageUrl = $imageUrl;
     }
 
+    function getUser() {
+        return $this->user;
+    }
+
+    function setUser(User $user) {
+        $this->user = $user;
+    }
 
 }

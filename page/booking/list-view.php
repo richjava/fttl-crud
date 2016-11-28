@@ -46,7 +46,6 @@
 //  $title - page title
 //  $status - status of TODOs to be displayed
 //  $todos - TODOs to be displayed
-
 ?>
 
 <h1>Bookings</h1>
@@ -57,15 +56,15 @@
     <ul class="list">
         <?php foreach ($bookings as $booking): ?>
             <li>                
-                <h3><a href="<?php echo Utils::createLink('detail', 
-                        array('id' => $booking->getId(), 'module' => 'booking')) ?>"><?php 
-                        echo Utils::escape($booking->getflightName()); ?></a></h3>                
-                <p><span class="label">Flight date:</span> <?php 
-                echo Utils::escape(Utils::formatDate($booking->getFlightDate())); 
-                ?></p>
-                <p><a href="index.php?module=booking&page=add-edit&id=<?php echo $booking->getId()?>">Edit</a>
-                    | <a href="index.php?module=booking&page=delete&id=<?php echo $booking->getId()?>">Delete</a></p>
+                <h3><a href="<?php echo Utils::createLink('detail', array('id' => $booking->getId(), 'module' => 'booking'))
+            ?>"><?php echo Utils::escape($booking->getflightName()); ?></a></h3> 
+                <a href="#"><?php echo Utils::escape($booking->getUser()->getFirstName()) . ' ' . Utils::escape($booking->getUser()->getLastName()); ?></a>
+                <p><span class="label">Flight date:</span> <?php
+               echo Utils::escape(Utils::formatDate($booking->getFlightDate()));
+            ?></p>
+                <p><a href="index.php?module=booking&page=add-edit&id=<?php echo $booking->getId() ?>">Edit</a>
+                    | <a href="index.php?module=booking&page=delete&id=<?php echo $booking->getId() ?>">Delete</a></p>
             </li>
-        <?php endforeach; ?>
+    <?php endforeach; ?>
     </ul>
-<?php endif; ?>
+    <?php endif; ?>

@@ -5,10 +5,11 @@
  *
  * @author richard_lovell
  */
-class BookingDao {
-
+class UserDao {
+    
     /** @var PDO */
     private $db = null;
+
 
     public function __destruct() {
         // close db connection
@@ -19,29 +20,28 @@ class BookingDao {
      * Find all {@link Booking}s by search criteria.
      * @return array array of {@link Booking}s
      */
-    public function find($sql) {
-
-        foreach ($this->query($sql) as $row) {
-            $booking = new Booking();
-            BookingMapper::map($booking, $row);
-            //$result[$booking->getId()] = $booking;
-            $result[] = $booking;
-        }
-        return $result;
-    }
+//    public function find($sql) {
+//        $result = array();
+//        foreach ($this->query($sql) as $row) {
+//            $booking = new Booking();
+//            BookingMapper::map($booking, $row);
+//            $result[$booking->getId()] = $booking;
+//        }
+//        return $result;
+//    }
 
     /**
      * Find {@link Todo} by identifier.
      * @return Todo Todo or <i>null</i> if not found
      */
-    public function findById($id) {
-        $row = $this->query('SELECT * FROM bookings WHERE status != "deleted" and id = ' . (int) $id)->fetch();
+    public function findByCredentials($email, $password) {
+        $row = $this->query('SELECT * FROM users WHERE status != "deleted" and email = "' . $email . '" AND ')->fetch();
         if (!$row) {
             return null;
         }
-        $booking = new Booking();
-        BookingMapper::map($booking, $row);
-        return $booking;
+        $user = new User();
+        UserMapper::map($user, $row);
+        return $user;
     }
 
     /**
@@ -142,7 +142,7 @@ class BookingDao {
                 image_url = :image_url
             WHERE
                 id = :id';
-
+        
         return $this->execute($sql, $booking);
     }
 
@@ -203,5 +203,4 @@ class BookingDao {
     private static function formatDateTime(DateTime $date) {
         return $date->format(DateTime::ISO8601);
     }
-
 }

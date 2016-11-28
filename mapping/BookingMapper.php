@@ -44,6 +44,18 @@ class BookingMapper {
         if (array_key_exists('image_url', $properties)) {
             $booking->setImageUrl($properties['image_url']);
         }
+        //map User 
+        if (array_key_exists('user_id', $properties)) {
+            $user = new User();
+            $user->setId($properties['user_id']);
+            if (array_key_exists('first_name', $properties)) {
+                $user->setFirstName($properties['first_name']);
+            }
+            if (array_key_exists('last_name', $properties)) {
+                $user->setLastName($properties['last_name']);
+            }
+            $booking->setUser($user);
+        }
     }
 
     private static function createDateTime($input) {

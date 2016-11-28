@@ -41,8 +41,31 @@
  * Portions Copyrighted 2011 Sun Microsystems, Inc.
  */
 
-$headTemplate = new HeadTemplate('Booking list | Fly to the Limit', 'List of bookings');
+//~ Template for list.php
+// variables:
+//  $title - page title
+//  $status - status of TODOs to be displayed
+//  $todos - TODOs to be displayed
 
-$dao = new BookingDao();
-$sql = 'SELECT u.id as user_id, u.first_name, u.last_name, b.flight_name, b.flight_date FROM bookings b, users u WHERE u.id = b.user_id;';
-$bookings = $dao->find($sql);
+?>
+
+<h1>Bookings</h1>
+
+<?php if (empty($bookings)): ?>
+    <p>No bookings found.</p>
+<?php else: ?>
+    <ul class="list">
+        <?php foreach ($bookings as $booking): ?>
+            <li>                
+                <h3><a href="<?php echo Utils::createLink('detail', 
+                        array('id' => $booking->getId(), 'module' => 'booking')) ?>"><?php 
+                        echo Utils::escape($booking->getflightName()); ?></a></h3>                
+                <p><span class="label">Flight date:</span> <?php 
+                echo Utils::escape(Utils::formatDate($booking->getFlightDate())); 
+                ?></p>
+                <p><a href="index.php?module=booking&page=add-edit&id=<?php echo $booking->getId()?>">Edit</a>
+                    | <a href="index.php?module=booking&page=delete&id=<?php echo $booking->getId()?>">Delete</a></p>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
