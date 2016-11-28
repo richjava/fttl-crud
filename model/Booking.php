@@ -32,10 +32,6 @@ class Booking {
         return $this->dateCreated;
     }
 
-    function getUserId() {
-        return $this->userId;
-    }
-
     function setId($id) {
         $this->id = $id;
     }
@@ -50,10 +46,6 @@ class Booking {
 
     function setDateCreated($dateCreated) {
         $this->dateCreated = $dateCreated;
-    }
-
-    function setUserId($user_id) {
-        $this->userId = $user_id;
     }
 
     /**
