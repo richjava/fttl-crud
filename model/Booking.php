@@ -13,7 +13,7 @@ class Booking {
     private $dateCreated;
     private $status;
     private $imageUrl;
-    //private $userId;
+    private $userId;
     private $user;
 
     function getId() {
@@ -77,5 +77,15 @@ class Booking {
     function setUser(User $user) {
         $this->user = $user;
     }
+    
+    function getUserId() {
+        return $this->userId;
+    }
+
+    function setUserId($userId) {
+        $this->userId = $userId;
+    }
+
+
 
 }

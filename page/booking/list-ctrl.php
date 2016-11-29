@@ -44,5 +44,7 @@
 $headTemplate = new HeadTemplate('Booking list | Fly to the Limit', 'List of bookings');
 
 $dao = new BookingDao();
-$sql = 'SELECT u.id as user_id, u.first_name, u.last_name, b.flight_name, b.flight_date FROM bookings b, users u WHERE u.id = b.user_id;';
+$sql = 'SELECT u.id as user_id, u.first_name, u.last_name, '
+        . 'b.id, b.flight_name, b.flight_date FROM bookings b, users '
+        . 'u WHERE u.id = b.user_id AND b.status != "deleted";';
 $bookings = $dao->find($sql);
